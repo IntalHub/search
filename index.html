@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IntallySearch</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      color: #f0f0f0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      color: #00ffe1;
+      text-shadow: 0 0 5px #00ffe1, 0 0 15px #00ffe1;
+      animation: flicker 1.5s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% {opacity: 1;}
+      50% {opacity: 0.9;}
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 50px;
+      box-shadow: 0 0 15px rgba(0, 255, 225, 0.3);
+    }
+
+    input[type="text"] {
+      padding: 15px 20px;
+      border-radius: 50px;
+      border: none;
+      width: 400px;
+      font-size: 16px;
+      outline: none;
+      background: #111;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0 0 10px #00ffe1;
+    }
+
+    button {
+      background: #222;
+      border: none;
+      border-radius: 50%;
+      padding: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button:hover {
+      background: #00ffe1;
+    }
+
+    button i {
+      font-size: 20px;
+      color: #fff;
+    }
+
+    button:hover i {
+      color: #111;
+    }
+
+    .hotkeys {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>IntallySearch</h1>
+  <div class="search-box">
+    <input type="text" id="query" placeholder="Что ищем? (Enter = Google, Shift+Enter = Яндекс)">
+    <button onclick="searchYandex()" title="Поиск в Яндексе">
+      <i class="fa-brands fa-yandex"></i>
+    </button>
+    <button onclick="searchGoogle()" title="Поиск в Google">
+      <i class="fa-brands fa-google"></i>
+    </button>
+  </div>
+  <div class="hotkeys">
+    <p id="random-hotkey"></p> <!-- Тут будет случайная фраза -->
+  </div>
+
+  <footer>
+    &copy; 2025 Intally | t.me/intally
+  </footer>
+
+  <script>
+    const input = document.getElementById("query");
+
+    const hotkeyMessages = [
+      '"Все пути ведут к победе" — Легион Командер',
+      '"Не омлет – Армлет!" — Свен',
+      '"Кебаб Тайм!" — Марс'
+    ];
+
+    const placeholderMessages = [
+      "Че ищешь? Че надо?",
+      "КОРОЛЕВСКИЙ СМЕХ",
+      "Зачем гугл и яндекс? Если их можно совместить :D",
+      "Оооо, джин.. Найди мне..",
+      "Я просто шокирована, б###ь, да я в а##е."
+    ];
+
+    function setRandomHotkey() {
+      const randomMessage = hotkeyMessages[Math.floor(Math.random() * hotkeyMessages.length)];
+      document.getElementById("random-hotkey").innerHTML = randomMessage;
+    }
+
+    function setRandomPlaceholder() {
+      const randomPlaceholder = placeholderMessages[Math.floor(Math.random() * placeholderMessages.length)];
+      input.placeholder = randomPlaceholder;
+    }
+
+    setRandomHotkey(); // Выбираем случайное сообщение для горячих клавиш
+    setRandomPlaceholder(); // Выбираем случайный текст для плейсхолдера
+
+    function getQuery() {
+      return input.value.trim();
+    }
+
+    function searchYandex() {
+      const query = getQuery();
+      if (query) {
+        window.open(`https://yandex.ru/search/?text=${encodeURIComponent(query)}`, "_blank");
+      }
+    }
+
+    function searchGoogle() {
+      const query = getQuery();
+      if (query) {
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_blank");
+      }
+    }
+
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        if (e.shiftKey) {
+          searchYandex();
+        } else {
+          searchGoogle();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
