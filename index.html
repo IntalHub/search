@@ -14,8 +14,6 @@
     body {
       margin: 0;
       padding: 0;
-      background: url('background.png') no-repeat center center fixed;
-      background-size: cover;
       font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
@@ -23,6 +21,8 @@
       height: 100vh;
       flex-direction: column;
       color: #f0f0f0;
+      background-size: cover;
+      background-position: center;
     }
 
     h1 {
@@ -139,6 +139,17 @@
       "Я просто шокирована, б###ь, да я в а##е."
     ];
 
+    const backgroundImages = [
+      'background1.png',  // путь к первому изображению
+      'background2.png',  // путь ко второму изображению
+      'background3.png'   // путь к третьему изображению
+    ];
+
+    function setRandomBackground() {
+      const randomImage = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+      document.body.style.backgroundImage = `url('${randomImage}')`;
+    }
+
     function setRandomHotkey() {
       const randomMessage = hotkeyMessages[Math.floor(Math.random() * hotkeyMessages.length)];
       document.getElementById("random-hotkey").innerHTML = randomMessage;
@@ -149,6 +160,7 @@
       input.placeholder = randomPlaceholder;
     }
 
+    setRandomBackground(); // Устанавливаем случайное изображение фона
     setRandomHotkey(); // Выбираем случайное сообщение для горячих клавиш
     setRandomPlaceholder(); // Выбираем случайный текст для плейсхолдера
 
